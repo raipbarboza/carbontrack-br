@@ -1,47 +1,45 @@
 # CarbonTrack BR
 
-Pipeline de dados públicos para análise de risco de carbono e ESG 
-de companhias abertas brasileiras.
+Estudo de dados públicos de companhias abertas brasileiras, com interesse em sustentabilidade e análise ESG.
 
-## Objetivo
+**Estado atual:** conjuntos de dados CSV publicados. O pipeline automatizado e o painel de risco de carbono são objetivos futuros.
 
-Coletar, limpar e analisar dados de emissões e sustentabilidade 
-de empresas brasileiras a partir de fontes públicas — CVM, IBAMA, 
-B3 ISE e relatórios GRI — gerando um painel de risco de carbono 
-por setor alinhado ao SBCE (Sistema Brasileiro de Comércio de Emissões).
+## Conteúdo disponível
 
-## Fontes de dados
+| Diretório | Arquivos |
+| --- | --- |
+| `data/raw/` | `cad_cia_aberta.csv` e `ise_carteira.csv` |
+| `data/processed/` | `empresas_mg_esg.csv`, `ise_limpo.csv`, `ise_x_cvm.csv` e `ise_mg.csv` |
 
-| Fonte | Dados | Status |
-|---|---|---|
-| CVM | Cadastro de companhias abertas | ✓ Coletado |
-| IBAMA | Licenças e autos de infração | Em breve |
-| B3 ISE | Empresas do índice de sustentabilidade | Em breve |
-| GRI / CDP | Relatórios públicos de sustentabilidade | Em breve |
+Os arquivos reúnem cadastro de companhias da CVM, carteira ISE B3 e recortes/processamentos exploratórios. A presença na carteira ISE não deve ser interpretada como certificação ESG ou medida de emissões.
 
-## Stack
+## Como consultar
 
-- **Python** — pandas, requests, pdfplumber, BeautifulSoup
-- **SQL** — PostgreSQL para armazenamento e limpeza
-- **Docker** — ambiente reproduzível
-- **Jupyter** — exploração e análise
+```bash
+git clone https://github.com/raipbarboza/carbontrack-br.git
+cd carbontrack-br
+```
 
-## Estrutura
+Abra os CSVs em um editor ou ferramenta de análise. Confira separador e codificação antes de importar: os arquivos brutos e processados podem ter formatos diferentes.
 
-carbontrack-br/
-├── data/
-│   ├── raw/          # dados brutos das fontes
-│   └── processed/    # dados limpos para análise
-├── notebooks/        # exploração e análise
-└── src/              # scripts reutilizáveis
+## Reprodução e limitações
 
-## Contexto
+Parte da exploração está registrada na [aula 05 de python-esg-studies](https://github.com/raipbarboza/python-esg-studies/blob/main/aula05/aula05.ipynb). O notebook utiliza caminhos locais que precisam ser adaptados e não constitui um pipeline automatizado deste repositório.
 
-A Lei 15.042/2024 regulamenta o SBCE e o mercado regulado de 
-carbono começa a operar em 2026. Empresas obrigadas a reportar 
-emissões precisarão de dados verificáveis — esse projeto constrói 
-a base de dados pública para esse fim.
+O cruzamento exploratório usa correspondência parcial entre nomes de empresas. Pode gerar falsos positivos e múltiplos registros por companhia; exige revisão e identificação consistente por CNPJ antes de apoiar conclusões. Quantidade de linhas, de ações e de empresas são medidas diferentes.
+
+As datas de coleta, fontes por arquivo e regras de transformação ainda precisam ser consolidadas em um dicionário de dados. Os CSVs são recortes de estudo e não representam necessariamente as carteiras ou os cadastros atuais.
+
+## Evolução planejada
+
+- Documentar origem, data de referência e licença de cada conjunto de dados.
+- Trazer os scripts de coleta e transformação para o repositório.
+- Validar o relacionamento entre empresas e ações.
+- Avaliar dados de emissões, IBAMA e relatórios de sustentabilidade.
+- Implementar armazenamento, ambiente reproduzível e visualizações conforme a necessidade.
+
+Python, Pandas, SQL/PostgreSQL e Docker são tecnologias consideradas para essa evolução; não há scripts, notebooks ou configuração Docker publicados aqui nesta etapa. O projeto ainda não calcula risco de carbono nem comprova conformidade regulatória.
 
 ## Autor
 
-Raí Barboza — [LinkedIn](https://www.linkedin.com/in/rai-pereira-barboza-01a90a262)
+[Rai Barboza](https://www.linkedin.com/in/rai-barboza-01a90a262/)
